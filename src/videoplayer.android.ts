@@ -504,6 +504,12 @@ export class Video extends VideoBase {
 				this.mediaPlayer.seekTo(this.preSeekTime);
 				this.preSeekTime = -1;
 			}
+			if(this.muted == true) {
+				this.mediaPlayer.setVolume(0);
+            }
+            else {
+				this.mediaPlayer.setVolume(1);
+            }
 			this.mediaState = SURFACE_READY;
 
 		} catch (ex) {
