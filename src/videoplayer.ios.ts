@@ -1,5 +1,12 @@
-﻿import { ios } from "tns-core-modules/application";
-import { Video as VideoBase, VideoFill, videoSourceProperty, fillProperty, subtitleSourceProperty } from "./videoplayer-common";
+﻿import { ios } from 'tns-core-modules/application';
+
+import {
+    fillProperty,
+    subtitleSourceProperty,
+    Video as VideoBase,
+    VideoFill,
+    videoSourceProperty
+} from './videoplayer-common';
 
 export * from "./videoplayer-common";
 
@@ -36,18 +43,11 @@ export class Video extends VideoBase {
         super();
         this._playerController = new AVPlayerViewController();
 
-        let audioSession = AVAudioSession.sharedInstance();
-        let output = audioSession.currentRoute.outputs.lastObject.portType;
-        if (output.match(/Receiver/)) {
-            try {
-              audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
-              audioSession.overrideOutputAudioPortError(AVAudioSessionPortOverride.Speaker);
-              audioSession.setActiveError(true);
-              //console.log("audioSession category set and active");
-            } catch (err) {
-              //console.log("setting audioSession category failed");
-            }
-        }
+        const audioSession = AVAudioSession.sharedInstance();
+        audioSession.setCategoryWithOptionsError(
+            AVAudioSessionCategoryPlayback,
+            AVAudioSessionCategoryOptions.MixWithOthers
+        );
 
         this._player = new AVPlayer();
         this._playerController.player = this._player;

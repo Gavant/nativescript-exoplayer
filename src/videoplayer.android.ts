@@ -1,8 +1,9 @@
-﻿
+﻿import * as nsApp from 'tns-core-modules/application';
+import * as nsUtils from 'tns-core-modules/utils/utils';
 
-import { Video as VideoBase, VideoFill, videoSourceProperty, subtitleSourceProperty } from "./videoplayer-common";
-import * as nsUtils from "tns-core-modules/utils/utils";
-import * as nsApp from "tns-core-modules/application";
+import { subtitleSourceProperty, Video as VideoBase, VideoFill, videoSourceProperty } from './videoplayer-common';
+
+
 
 export * from "./videoplayer-common";
 
@@ -382,8 +383,6 @@ export class Video extends VideoBase {
 
 		this.videoOpened = true; // we don't want to come back in here from texture system...
 
-		let am = nsUtils.ad.getApplicationContext().getSystemService(android.content.Context.AUDIO_SERVICE);
-		am.requestAudioFocus(null, android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.AUDIOFOCUS_GAIN);
 		try {
 			let bm = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter();
 			let trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory(bm);
